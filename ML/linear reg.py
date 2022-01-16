@@ -7,6 +7,11 @@ from sklearn import linear_model
 from sklearn.utils import shuffle
 print("Everything imported for linear regression")
 
+import matplotlib.pyplot as pyplot
+import pickle
+from matplotlib import style
+print("Importing for plotting")
+
 data = pd.read_csv("student-mat.csv", sep=";")
 #print(data.head())
 
@@ -33,19 +38,35 @@ linear.fit(x_train,y_train)
 acc = linear.score(x_test,y_test)  #Try the model on test
 print(acc)   #Accuracy -  which will vary each time you run it
 
+#Saving the Model for future purposes
+with open("studentmodel.pickle","wb") as f:
+    pickle.dump(linear,f)
+
 print(linear.coef_)   #[0.1506377  0.99810313 0.25072664]  -> Coefficients like slopes for each axis - here were 3
 print(linear.intercept_)  #intercept on G3 axis
 
 #Try the fit on x_test on which we have NOT trained the fit
 predictions  = linear.predict(x_test)
-print("Parameters observed    Predicted value from fit     Actual value")
+print("Parameters observed    Parameter Predicted value from fit     Actual value of Parameter")
 
 for i in range(len(predictions)):
     print(x_test[i],"\t\t",predictions[i],"\t\t",y_test[i])
 
 """
-Parameters observed    Predicted value from fit     Actual value
+Parameters observed    Predicted Predicted value from fit     Actual value of Parameter
 [11 13  4]               12.65928221045806               13
 [8 8 4]                  7.2461897552490235              10
+:::
+[15 15  5]               15.612781349078308              15
 
 """
+
+
+pickle_in = open("studentmodel.pickle","rb")
+linear = pickle.load(pickle_in)
+#Once you load the model, you can skip the lines from 35-43 in future iterations of this file
+
+
+
+
+
