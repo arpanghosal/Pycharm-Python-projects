@@ -48,7 +48,7 @@ def objective(trial):
 study = optuna.create_study(direction="maximize")  # maximize accuracy
 
 # Optimize the objective function
-study.optimize(objective, n_trials=2)  # You can adjust the number of trials
+study.optimize(objective, n_trials=1000)  # You can adjust the number of trials
 
 # Get the best hyperparameters
 best_params = study.best_params
